@@ -1,0 +1,39 @@
+{
+  //  カスタムの「アプリ登録」と連携させる場合は次の設定を行ってください
+  // *** ここから ***
+  //
+  // "auth": {
+  //   "identityProviders": {
+  //       "azureActiveDirectory": {
+  //           "registration": {
+  //               "openIdIssuer": "https://login.microsoftonline.com/<AAD_TenantID>",
+  //               "clientIdSettingName": "<AAD_ClientID>",
+  //               "clientSecretSettingName": "<AAD_Client_Secret>"
+  //           }
+  //       }
+  //   }
+  // },
+  // *** ここまで ***
+  "routes": [
+    // ログインを強制させる
+    {
+      "route": "/",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/login",
+      "redirect": "/.auth/login/aad"
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout/aad"
+    }
+  ],
+  // ログインしていない場合はログイン画面に遷移させる
+  "responseOverrides": {
+    "401": {
+      "redirect": "/login",
+      "statusCode": 302
+    }
+  }
+}

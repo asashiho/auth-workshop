@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://unpkg.com/@microsoft/mgt/dist/bundle/mgt-loader.js"></script>
+  </head>
+  <body>
+    <h2>Microsoft Graph Toolkit を使ったAzure AD 認証認可の基本</h2>
+    <hr />
+    
+    
+    <!-- client-idの値をご自身の「アプリ登録」のアプリケーションID(クライアントID)に変更 -->
+    <mgt-msal2-provider client-id="d9985871-c6b8-480e-92ce-b3783477e760"></mgt-msal2-provider>
+
+    <mgt-login>
+      <template data-type=”signed-in-button-content”>
+        <div>{{personDetails.mail}}</div>
+      </template>
+    </mgt-login>
+
+    <hr />
+
+    <!-- 自分のプロフィールを表示 -->
+    <h3>parson card</h3>
+    <mgt-person-card person-query="me"></mgt-person-card>
+
+    <!-- 自分のスケジュールを表示 -->
+    <!-- <h3>schedule</h3>
+    <mgt-agenda
+        date="October 4, 2022"
+        days="3"
+        group-by-day>
+    </mgt-agenda> -->
+
+    <!-- 演習: Todoを表示 -->
+    <!-- 演習: mgt-get使ってMicrosoft Graph API に直接 GET クエリを作成 -->
+
+  </body>
+</html>

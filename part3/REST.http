@@ -1,0 +1,60 @@
+
+Backend API using Java
+
+@backend_url = https://auth-workshop-user1-backend.azurewebsites.net
+###
+
+###
+POST {{backend_url}}/api/v1/todos
+content-type: application/json
+
+{
+    "title": "伝票処理",
+    "task": "空港に荷物をおくる",
+    "duedate": "2022-10-20" ,
+    "status": "Pending"
+}
+
+###
+GET {{backend_url}}/api/v1/todos
+
+###
+PUT {{backend_url}}/api/v1/todos/1
+content-type: application/json
+
+{
+    "title": "発送処理",
+    "task": "羽田空港から発送する",
+    "duedate": "2022-10-25" ,
+    "status": "Pending"
+}
+
+###
+DELETE {{backend_url}}/api/v1/todos/2
+
+
+
+###
+GET {{backend_url}}/.auth/me
+
+
+###
+GET {{backend_url}}/api/v1/todos
+Authorization: Bearer b8p8Q~CmHzX6r0WzRGjRsTwZOsFVxER~YrYKkaGG
+
+
+###
+POST {{backend_url}}/api/v1/todos
+content-type: application/json
+
+{
+    "title": "test data2",
+    "task": "test task2",
+    "duedate": "2022-10-10" ,
+    "status": "Pending"
+}
+
+###
+GET https://easyauth-frontend.azurewebsites.net/
+Authorization: Bearer some-token
+
