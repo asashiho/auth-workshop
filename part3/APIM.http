@@ -1,0 +1,69 @@
+
+Backend API using Java
+
+@backend_url = https://auth-workshop-backend.azurewebsites.net
+###
+
+###
+POST {{backend_url}}/api/v1/todos
+content-type: application/json
+
+{
+    "title": "伝票処理",
+    "task": "空港に荷物をおくる",
+    "duedate": "2022-10-20" ,
+    "status": "Pending"
+}
+
+###
+GET {{backend_url}}/api/v1/todos
+
+###
+PUT {{backend_url}}/api/v1/todos/1
+content-type: application/json
+
+{
+    "title": "発送処理",
+    "task": "羽田空港から発送する",
+    "duedate": "2022-10-25" ,
+    "status": "Pending"
+}
+
+###
+DELETE {{backend_url}}/api/v1/todos/2
+
+
+
+Backend API using Java
+
+@apim_url = https://apimdemo0518.azure-api.net
+###
+###
+POST {{apim_url}}/api/v1/todos
+content-type: application/json
+
+{
+    "title": "伝票処理",
+    "task": "空港に荷物をおくる",
+    "duedate": "2022-10-20" ,
+    "status": "Pending"
+}
+
+###
+GET {{apim_url}}/api/v1/todos
+
+###
+PUT {{backend_url}}/api/v1/todos/1
+content-type: application/json
+
+{
+    "title": "発送処理",
+    "task": "羽田空港から発送する",
+    "duedate": "2022-10-25" ,
+    "status": "Pending"
+}
+
+###
+DELETE {{backend_url}}/api/v1/todos/2
+
+
