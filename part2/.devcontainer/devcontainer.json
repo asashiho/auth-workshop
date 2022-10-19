@@ -32,7 +32,7 @@
 	"remoteUser": "node",
 	"features": {
 		"docker-in-docker": "latest",
-		"github-cli": "latest",
+		"docker-from-docker": "latest",
 		"azure-cli": "latest"
 	}
 }
