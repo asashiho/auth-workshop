@@ -19,7 +19,6 @@ import io.swagger.v3.oas.annotations.media.*;
 import io.swagger.v3.oas.annotations.responses.*;
 import io.swagger.v3.oas.annotations.tags.*;
 
-
 @CrossOrigin
 @RestController
 @Tag(name = "todo", description = "TodoリストAPI")
@@ -31,7 +30,9 @@ public class TaskController {
 
 	@Operation(summary = "Todoリスト全件取得", description = "登録されているTodoリストを取得します")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Task.class)))) })
+			@ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(array = @ArraySchema(schema = @Schema(implementation = Task.class)))),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error")
+	})
 	@GetMapping("/todos")
 	public ResponseEntity<List<Task>> getAllTasks(@RequestParam(required = false) String title) {
 
@@ -46,13 +47,13 @@ public class TaskController {
 			}
 			return new ResponseEntity<>(tasks, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@Operation(summary = "Todoリスト取得", description = "指定したIDのTodoリストを1件取得します")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation", content = @Content(schema = @Schema(implementation = Task.class))),
+			@ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(implementation = Task.class))),
 			@ApiResponse(responseCode = "404", description = "Todo not found") })
 	@GetMapping("/todos/{id}")
 	public ResponseEntity<Task> getTaskById(@PathVariable("id") long id) {
@@ -66,7 +67,9 @@ public class TaskController {
 
 	@Operation(summary = "Todoリスト登録", description = "新しいTodoリストを1件登録します")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "201", description = "Todo created", content = @Content(schema = @Schema(implementation = Task.class))) })
+			@ApiResponse(responseCode = "201", description = "Todo created", content = @Content(schema = @Schema(implementation = Task.class))),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error")
+	})
 	@PostMapping("/todos")
 	public ResponseEntity<Task> createTask(@RequestBody Task task) {
 		try {
@@ -81,7 +84,9 @@ public class TaskController {
 
 	@Operation(summary = "Todoリスト更新", description = "指定したIDのTodoリストを1件更新します")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation") })
+			@ApiResponse(responseCode = "204", description = "Todo updated"),
+			@ApiResponse(responseCode = "404", description = "Todo not found")
+	})
 	@PutMapping("/todos/{id}")
 	public ResponseEntity<Task> updateTask(@PathVariable("id") long id, @RequestBody Task task) {
 		Optional<Task> taskData = repository.findById(id);
@@ -92,7 +97,7 @@ public class TaskController {
 			_task.setStatus(task.getStatus());
 			_task.setDuedate(task.getDuedate());
 			_task.setUpdatedOn(ZonedDateTime.now());
-			return new ResponseEntity<>(repository.save(_task), HttpStatus.OK);
+			return new ResponseEntity<>(repository.save(_task), HttpStatus.NO_CONTENT);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -100,9 +105,11 @@ public class TaskController {
 
 	@Operation(summary = "Todoリスト削除", description = "指定したIDのTodoリストを1件削除します")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation") })
+			@ApiResponse(responseCode = "204", description = "Todo deleted"),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error")
+	})
 	@DeleteMapping("/todos/{id}")
-	public ResponseEntity<HttpStatus> deleteTask(@PathVariable("id") long id) {
+	public ResponseEntity<Void> deleteTask(@PathVariable("id") long id) {
 		try {
 			repository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -113,9 +120,11 @@ public class TaskController {
 
 	@Operation(summary = "Todoリスト全削除", description = "Todoリストを全件削除します")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "successful operation") })
+			@ApiResponse(responseCode = "204", description = "Todo all deleted"),
+			@ApiResponse(responseCode = "500", description = "Internal Server Error")
+	})
 	@DeleteMapping("/todos")
-	public ResponseEntity<HttpStatus> deleteAllTasks() {
+	public ResponseEntity<Void> deleteAllTasks() {
 		try {
 			repository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
