@@ -19,7 +19,7 @@
 
 ## ドキュメント
 
-[https://](https://)
+[Azure Auth Workshop🔧](https://asashiho.github.io/auth-workshop)
 
 ローカルで動かすときは、次のコマンドを実行してサーバを起動してください。
 
